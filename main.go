@@ -1,6 +1,6 @@
 // +build main
 
-// Simulate basic synthesizer modules in GoLang.
+// Simulate basic synthesizer modules.
 //
 // $ go run main.go -db=0 -r=48000 -v=0 |  paplay --rate=48000 --channels=1 --format=s16le --raw /dev/stdin
 package main
@@ -23,7 +23,7 @@ var flagGain = flag.Float64("db", 0, "output gain in db")
 func main() {
 	flag.Parse()
 
-	w := bufio.NewWriter(os.Stdout)
+	w := bufio.NewWriterSize(os.Stdout, 1024)
 	defer func() { w.Flush() }()
 
 	L1 := &VFO{
